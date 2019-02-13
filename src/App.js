@@ -7,7 +7,9 @@ const App = () => {
   ]);
   return (
     <div id="list-container">
-      <ListDisplay items={items}/>
+      <ListDisplay items={items} handleClick={(item) => {
+        setItems(items.slice().filter((i) => i !== item));
+      }}/>
       <InputText handleSubmit={(item) => {
           setItems(items.concat(item));
         }}
@@ -17,7 +19,7 @@ const App = () => {
 }
 
 const ListItem = (props) => (
-  <li>{props.name}</li>
+  <li onClick={()=> props.handleClick(props.name)}>{props.name}</li>
 )
 
 const ListDisplay = (props) => {
@@ -25,6 +27,7 @@ const ListDisplay = (props) => {
     <ListItem
       key={i}
       name={item}
+      handleClick={props.handleClick}
     />
   ))
   return (
